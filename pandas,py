@@ -1,0 +1,124 @@
+import pandas as pd
+import numpy as np
+
+# 1. What is Pandas?
+print("1. What is Pandas?")
+print("Pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.")
+print("It provides data structures and operations for manipulating numerical tables and time series.")
+print("The two primary data structures in Pandas are Series and DataFrame.")
+print("-" * 30)
+
+# 2. Pandas Series
+print("2. Pandas Series")
+print("A Series is a one-dimensional labeled array capable of holding any data type (integers, strings, floating point numbers, Python objects, etc.).")
+print("It is similar to a column in a spreadsheet or a SQL table, or a NumPy array with an attached index.")
+
+# Explain how to create a Pandas Series from a Python list.
+print("\nHow to create a Pandas Series from a Python list:")
+print("You can create a Series by passing a Python list to the `pd.Series()` constructor.")
+print("Optionally, you can provide an index for the Series.")
+
+# Demonstrate creating a Series from a list
+my_list = [10, 20, 30, 40, 50]
+my_series = pd.Series(my_list)
+print(f"Python list: {my_list}")
+print("Pandas Series created from the list:")
+print(my_series)
+
+my_list_with_index = ['a', 'b', 'c']
+my_index = ['idx1', 'idx2', 'idx3']
+my_series_indexed = pd.Series(my_list_with_index, index=my_index)
+print(f"\nPython list: {my_list_with_index}")
+print(f"Custom index: {my_index}")
+print("Pandas Series created with custom index:")
+print(my_series_indexed)
+print("-" * 30)
+
+# 3. Pandas DataFrame
+print("3. Pandas DataFrame")
+print("A DataFrame is a two-dimensional labeled data structure with columns of potentially different types.")
+print("It is similar to a spreadsheet, SQL table, or a dictionary of Series objects.")
+print("It is the most commonly used pandas object.")
+
+# Explain how to create a Pandas DataFrame from a Python dictionary.
+print("\nHow to create a Pandas DataFrame from a Python dictionary:")
+print("You can create a DataFrame by passing a Python dictionary to the `pd.DataFrame()` constructor.")
+print("The keys of the dictionary will become the column names, and the values will be the data for each column.")
+
+# Demonstrate creating a DataFrame from a dictionary
+data = {
+    'Name': ['Alice', 'Bob', 'Charlie', 'David'],
+    'Age': [25, 30, 35, 40],
+    'City': ['New York', 'London', 'Paris', 'Tokyo']
+}
+my_dataframe = pd.DataFrame(data)
+print(f"Python dictionary: {data}")
+print("Pandas DataFrame created from the dictionary:")
+print(my_dataframe)
+print("-" * 30)
+
+# 4. Loading Data from a CSV file
+print("4. Loading Data from a CSV file")
+print("One of the most common ways to get data into a Pandas DataFrame is by reading from a CSV (Comma Separated Values) file.")
+print("The `pd.read_csv()` function is used for this purpose.")
+print("It can handle various parameters like delimiters, headers, index columns, etc.")
+
+# Create a dummy CSV file for demonstration
+csv_data = """Name,Age,City
+Alice,25,New York
+Bob,30,London
+Charlie,35,Paris
+David,40,Tokyo
+"""
+with open("sample_data.csv", "w") as f:
+    f.write(csv_data)
+
+print("\nDemonstrating loading data from 'sample_data.csv':")
+try:
+    loaded_df = pd.read_csv("sample_data.csv")
+    print("DataFrame loaded from CSV:")
+    print(loaded_df)
+except FileNotFoundError:
+    print("Error: sample_data.csv not found. Please ensure the file exists.")
+print("-" * 30)
+
+# 5. Indexing and Selecting Data
+print("5. Indexing and Selecting Data")
+print("Pandas DataFrames provide powerful ways to select and filter data using labels or integer locations.")
+print("The primary methods for indexing are `.loc[]` and `.iloc[]`.")
+
+print("\nUsing .loc[] (label-based indexing):")
+print(".loc[] is primarily label-based, meaning you use the row and column labels (names) to select data.")
+print("It can also take boolean arrays.")
+
+print("Select row with index 1 (using default integer index):")
+print(loaded_df.loc[1])
+
+print("\nSelect rows with index 0 and 2:")
+print(loaded_df.loc[[0, 2]])
+
+print("\nSelect 'Name' column for all rows:")
+print(loaded_df.loc[:, 'Name'])
+
+print("\nSelect 'Name' and 'Age' columns for rows 0 and 3:")
+print(loaded_df.loc[[0, 3], ['Name', 'Age']])
+
+print("\nSelect rows where Age is greater than 30:")
+print(loaded_df.loc[loaded_df['Age'] > 30])
+
+print("\nUsing .iloc[] (integer-location based indexing):")
+print(".iloc[] is primarily integer-location based, meaning you use the integer position of the rows and columns to select data.")
+print("It works similarly to NumPy array indexing.")
+
+print("\nSelect row at integer position 1:")
+print(loaded_df.iloc[1])
+
+print("\nSelect rows at integer positions 0 and 2:")
+print(loaded_df.iloc[[0, 2]])
+
+print("\nSelect column at integer position 0 (Name):")
+print(loaded_df.iloc[:, 0])
+
+print("\nSelect columns at integer positions 0 and 1 (Name, Age) for rows at integer positions 0 and 3:")
+print(loaded_df.iloc[[0, 3], [0, 1]])
+print("-" * 30)
